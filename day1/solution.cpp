@@ -42,24 +42,14 @@ int partOne(vector<int> vals) {
 int partTwo(vector<int> vals) {
     int count = 0, firstSum = 0, secondSum = 0;
 
-    // This loop initializes both sums but the i counter focuses on firstSum
-    for (int i = 0; i < 3; i++)
+    // Set firstSum to max so first window comparison is skipped (nothing to compare to yet).
+    firstSum = INT_MAX;
+    // Compare successive 3 element windows
+    for (int i = 0; i < vals.size(); i++)
     {
-        firstSum += vals[i];
-        secondSum += vals[i + 1];
-    }
-
-    // First comparison
-    if (secondSum > firstSum) count++;
-
-    // This i counter focuses on secondSum
-    for (int i = 4; i < vals.size(); i++)
-    {
-        firstSum = secondSum;
-        secondSum -= vals[i - 3];
-        secondSum += vals[i];
-
+        secondSum = vals[i] + vals[i + 1] + vals[i + 2];
         if (secondSum > firstSum) count++;
+        firstSum = secondSum;
     }
 
     return count;
