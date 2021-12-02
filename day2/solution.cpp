@@ -36,6 +36,7 @@ int main(int argc, char** argv) {
 
     // Print results
     cout << "Part One Answer: " << partOne(dirs) << endl;
+    cout << "Part Two Answer: " << partTwo(dirs) << endl;
     return 0;
 }
 
@@ -66,7 +67,25 @@ int partOne(vector<direction> dirs) {
     return horiz * depth;
 }
 
+// Returns the product of the final horizontal position and depth.
+// Depth is now based on forward movement and the "aim" of the submarine.
 int partTwo(vector<direction> dirs) {
-    int result = 0;
-    return result;
+    int horiz = 0, depth = 0, aim = 0;
+
+    for (vector<direction>::iterator it = dirs.begin(); it < dirs.end(); it++)
+    {
+        if (it->direction == "forward")
+        {
+            horiz += it->value;
+            depth += aim * it->value;
+        } else if (it->direction == "down")
+        {
+            aim += it->value;
+        } else if (it->direction == "up")
+        {
+            aim -= it->value;
+        }
+    }
+
+    return horiz * depth;
 }
