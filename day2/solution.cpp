@@ -4,12 +4,10 @@
 using namespace std;
 
 // Struct containing a direction and value
-struct direction
-{
+struct direction {
     string direction;
     int value;
 };
-
 
 // function headers
 int partOne(vector<direction>);
@@ -23,8 +21,7 @@ int main(int argc, char** argv) {
     string dir;
     int value;
 
-    while (input >> dir >> value)
-    {
+    while (input >> dir >> value) {
         // Create direction object
         direction tmp;
         tmp.direction = dir;
@@ -44,23 +41,15 @@ int main(int argc, char** argv) {
 int partOne(vector<direction> dirs) {
     int horiz = 0, depth = 0;
 
-    for (vector<direction>::iterator it = dirs.begin(); it < dirs.end(); it++)
-    {
-        if (it->direction == "forward")
-        {
+    for (vector<direction>::iterator it = dirs.begin(); it < dirs.end(); it++) {
+        if (it->direction == "forward") {
             horiz += it->value;
-        } else if (it->direction == "down")
-        {
+        } else if (it->direction == "down") {
             depth += it->value;
-        } else if (it->direction == "up")
-        {
-            // Check if already at surface
-            if (depth < it->value)
-            {
-                depth = 0;
-            } else {
-                depth -= it->value;
-            }
+        } else if (it->direction == "up") {
+            depth -= it->value;
+            // Check if we surfaced.
+            if (depth < 0) depth = 0;
         }
     }
 
@@ -72,17 +61,15 @@ int partOne(vector<direction> dirs) {
 int partTwo(vector<direction> dirs) {
     int horiz = 0, depth = 0, aim = 0;
 
-    for (vector<direction>::iterator it = dirs.begin(); it < dirs.end(); it++)
-    {
-        if (it->direction == "forward")
-        {
+    for (vector<direction>::iterator it = dirs.begin(); it < dirs.end(); it++) {
+        if (it->direction == "forward") {
             horiz += it->value;
             depth += aim * it->value;
-        } else if (it->direction == "down")
-        {
+            // Check if we surfaced.
+            if (depth < 0) depth = 0;
+        } else if (it->direction == "down") {
             aim += it->value;
-        } else if (it->direction == "up")
-        {
+        } else if (it->direction == "up") {
             aim -= it->value;
         }
     }
